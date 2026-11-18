@@ -1,0 +1,32 @@
+resources:
+  jobs:
+    training_pipeline:
+      name: telco-churn-pipeline
+      tasks:
+        - task_key: train
+          notebook_task:
+            notebook_path: ../src/train.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+        - task_key: validate_promote
+          depends_on:
+            - task_key: train
+          notebook_task:
+            notebook_path: ../src/validate_promote.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+              min_f1: '0.55'
+        - task_key: batch_inference
+          depends_on:
+            - task_key: validate_promote
+          notebook_task:
+            notebook_path: ../src/batch_inference.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+      schedule:
+        quartz_cron_expression: '0 0 6 * * ?'
+        timezone_id: UTC
+        pause_status: PAUSED
