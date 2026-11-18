@@ -26,6 +26,14 @@ resources:
             base_parameters:
               catalog: ${var.catalog}
               schema: ${var.schema}
+        - task_key: deploy_endpoint
+          depends_on:
+            - task_key: validate_promote
+          notebook_task:
+            notebook_path: ../src/endpoint.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
       schedule:
         quartz_cron_expression: '0 0 6 * * ?'
         timezone_id: UTC
