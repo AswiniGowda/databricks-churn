@@ -12,17 +12,9 @@ include:
 
 targets:
   dev:
-    mode: development
-    default: true
     workspace:
-      host: https://adb-7405606210469469.9.azuredatabricks.net
-    variables:
-      catalog: mlops_learning
-      schema: mlops_dev
-  prod:
-    workspace:
-      host: https://adb-7405606210469469.9.azuredatabricks.net
+      host: https://adb-7405610249319530.10.azuredatabricks.net
       root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: mlops_learning
-      schema: mlops_prod
+      catalog: mlops_learning_7405610249319530
+      schema: mlops_dev
