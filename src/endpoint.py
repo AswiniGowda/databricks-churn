@@ -46,7 +46,7 @@ if exists:
 else:
     w.serving_endpoints.create_and_wait(
         name=ENDPOINT,
-        config=EndpointCoreConfigInput(served_entities=[entity]),
+        config=EndpointCoreConfigInput(name=ENDPOINT, served_entities=[entity]),
     )
     print(f'Created endpoint {ENDPOINT}')
 
